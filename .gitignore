@@ -1,0 +1,10 @@
+.env
+__pycache__/
+venv/
+.venv/
+.vscode/
+.ipynb_checkpoints/
+
+# Ignore all knowledge-base folders
+agents/kb/*
+!agents/kb/.gitkeep

@@ -1,0 +1,10 @@
+huggingface_hub
+transformers
+python-dotenv
+ipykernel
+ollama
+llama-index
+ipywidgets
+notebook
+llama-index-embeddings-huggingface 
+sentence-transformers
