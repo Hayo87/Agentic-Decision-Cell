@@ -8,3 +8,6 @@ venv/
 # Ignore all knowledge-base folders
 agents/kb/*
 !agents/kb/.gitkeep
+
+# Clear notebook outputs 
+*.ipynb filter=clean_ipynb
