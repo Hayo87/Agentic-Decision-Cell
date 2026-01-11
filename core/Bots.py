@@ -59,7 +59,14 @@ def load_chat_agent(provider: str, model: str, system_prompt: str = ""):
             resp = client.chat.completions.create(
                 model=model,
                 messages=messages,
-                max_tokens=800,
+                max_tokens=250,          
+                temperature=0.2,        
+                top_p=0.9,
+                stop=[
+                    "\nQuestion:",
+                    "\nObservation:",
+                    "------------------------------------------------------------"
+                ],
             ).choices[0].message.content
             messages.append({"role": "assistant", "content": resp})
             return resp or ""
