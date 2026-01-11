@@ -1,20 +1,29 @@
 import yaml
 from core.Bots import load_chat_agent
 from typing import Dict, Optional, Union
+from dataclasses import dataclass
+
+
+@dataclass
+class ReasoningStep:
+    agent: str
+    prompt: str
+    thought: str
+    action: str
+    target: Optional[str]
+    content: str
+    parse_error: bool
+    raw: str
 
 class Agent:
     """
     Class for a LLM agent, load YAML config, applies system prompt, and queries an LLM backend returning a parsed action. 
     """
 
-    def __init__(self, agent_name: str, provider: str, model: str, debug=False):
+    def __init__(self, agent_name: str, provider: str, model: str):
         """
         Load the agent YAML, set metadata, and initialize the LLM client.
         """
-
-        # Set debug mode
-        self.debug = debug
-
         # Store model and provider
         self.model = model
         self.provider = provider
@@ -31,33 +40,16 @@ class Agent:
         # LLM inference function
         self.infer = load_chat_agent(provider, model, self.system_prompt)
 
-    def query(self, question: str) -> Dict[str, Optional[str]]:
+    def query(self, question: str) -> ReasoningStep:
         """
         Send a question to the LLM and return raw text output.
         """
-        if self.debug:
-            print("\n--- Agent Query ---")
-            print(f"Agent: {self.name}")
-            print(f"Question:\n{question}")
-
-        raw_response = self.infer(question)
-        response = self.parse(raw_response)
-
-        if self.debug:
-            print(f"RAW RESPONSE:\n{raw_response}")
-            print(f"PARSED RESPONSE: {response}")
-
-        return response
         
-    def get_descriptor(self):
-        """
-        Return a short human-readable description of this agent.
-        """
-        return f"{self.name}: {self.role}"
-
-    def parse(self, raw: str) -> Dict[str, Union[str, None, bool]]:
+        return self.parse(question, self.infer(question))
+    
+    def parse(self, question: str, response: str, ) -> ReasoningStep:
         
-        lines = [l.strip() for l in raw.splitlines() if l.strip()]
+        lines = [l.strip() for l in response.splitlines() if l.strip()]
         get = lambda k: next((l.split(":", 1)[1].strip() for l in lines if l.startswith(k + ":")), "")
 
         raw_thought = get("Thought")
@@ -75,15 +67,17 @@ class Agent:
         if isinstance(target, str) and target.lower() in {"", "none", "null"}:
             target = None
 
-        return {
-            "thought": thought,
-            "type": action,
-            "target": target,
-            "content": content,
-            "parse_error": parse_error,
-            "raw": raw
-        }
+        return ReasoningStep(
+            agent=self.name,
+            prompt = question,
+            thought=thought,
+            action=action,
+            target=target,
+            content=content,
+            parse_error=parse_error,
+            raw= response or "",
+        )
     
-    def reset(self):
+    def reset(self) -> None:
         """Clear the internal LLM message history so the agent starts fresh."""
         self.infer = load_chat_agent(self.provider, self.model, self.system_prompt)

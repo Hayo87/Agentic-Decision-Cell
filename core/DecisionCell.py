@@ -1,6 +1,7 @@
-from typing import List, Dict, Any
+from typing import List
 from core.Agent import Agent
 from core.Tooling import ToolHandler
+from core.Logbook import Logbook 
 
 class DecisionCell:
     """
@@ -32,9 +33,11 @@ class DecisionCell:
 
         # Internal state
         self.stack = []      
-        self.trace = []      
 
-    def run(self, objective: str) -> Dict[str, Any]:
+        # Logbook
+        self.logbook = Logbook(self.debug)      
+
+    def run(self, objective: str) -> Logbook:
         """
         Run the full reasoning loop for a given objective.
 
@@ -71,26 +74,23 @@ class DecisionCell:
             # Ask agent
             response = agent.query(prompt)
 
+            # Log
+            self.logbook.record_step(
+                turn = turns,
+                reasoning = response,
+                stack_depth= len(self.stack),
+            )
+
             # Unpack results
-            action_type = response["type"]
-            target = response["target"]
-            content = response["content"] 
+            action_type = response.action
+            target = response.target
+            content = response.content
 
-            # Log 
-            self.trace.append({
-                "agent": agent.name,
-                "question": frame["question"],
-                "observation": frame["observation"],
-                "response": response,
-                "stack_depth": len(self.stack),
-            })
-
-
-            # If parse error inform parent
-            if response.get("parse_error"):
-                response["type"] = "finish"
-                response["target"] = None
-                response["content"] = "Agent was unable to answer the question."
+            # If parse error goto parent
+            if response.parse_error:
+                action_type = "finish"
+                target = None
+                content = "Agent was unable to answer the question."
 
             # Process the action
             match action_type:
@@ -101,13 +101,9 @@ class DecisionCell:
                     if self.stack:
                         # Pass result to parent
                         self.stack[-1]["observation"] = content
-                        continue
                     else:
                         # No parent, final output
-                        return {
-                            "result": content,
-                            "trace": self.trace,
-                        }
+                        return self.logbook
 
                 case "delegate":
                     try:
@@ -125,22 +121,11 @@ class DecisionCell:
                 # Tool call 
                 case _:
                     # placeholder: tool or other actions
-                    result = self.tool_handler.handle(action_type, target, agent.name, content)
+                    result = self.tool_handler.handle(action_type, target, agent.name, content)     # type:ignore
                     frame["observation"] = result
-                    continue
-
-
-            if done:
-                return {
-                    "result": result,
-                    "trace": self.trace,
-                }
 
         # Max turns hit or stack empty without return
-        return {
-            "result": "FAILED_OR_INCOMPLETE",
-            "trace": self.trace,
-        }
+        return self.logbook
 
     def reset(self) -> None:
         """
@@ -150,12 +135,11 @@ class DecisionCell:
 
         # Reset internal state
         self.stack = []
-        self.trace = []
+        self.logbook.reset
 
         # Reset agents
         for a in self.agents:
             a.reset()            
         self.entry_agent.reset()
-
 
 
