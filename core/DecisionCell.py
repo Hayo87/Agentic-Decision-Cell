@@ -63,9 +63,10 @@ class DecisionCell:
             # Get current frame
             frame = self.stack[-1]
             agent = frame["agent"]                
-            prompt = frame["question"]
-            if frame["observation"]:
-                prompt += f"\nObservation: {frame['observation']}"
+            if frame["observation"] is not None:
+                prompt = f"Observation: {frame['observation']}"
+            else:
+                prompt = frame["question"]
             
             # Ask agent
             response = agent.query(prompt)
@@ -83,6 +84,13 @@ class DecisionCell:
                 "response": response,
                 "stack_depth": len(self.stack),
             })
+
+
+            # If parse error inform parent
+            if response.get("parse_error"):
+                response["type"] = "finish"
+                response["target"] = None
+                response["content"] = "Agent was unable to answer the question."
 
             # Process the action
             match action_type:
@@ -102,14 +110,18 @@ class DecisionCell:
                         }
 
                 case "delegate":
-                    target_agent = self.agents_by_name[target]
-                    self.stack.append({
-                        "agent": target_agent,
-                        "question": content,
-                        "observation": None
-                    })
-                    continue
-
+                    try:
+                        target_agent = self.agents_by_name[target]
+                        self.stack.append({
+                            "agent": target_agent,
+                            "question": content,
+                            "observation": None
+                        })
+                        continue
+                    except Exception:
+                        frame["observation"] = f"[AGENT_ERROR] Unknown delegate target: {target}"
+                        continue
+                        
                 # Tool call 
                 case _:
                     # placeholder: tool or other actions
