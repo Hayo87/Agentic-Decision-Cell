@@ -75,8 +75,6 @@ class Agent:
         if isinstance(target, str) and target.lower() in {"", "none", "null"}:
             target = None
 
-        parse_error = not (thought and action and content)
-
         return {
             "thought": thought,
             "type": action,
