@@ -1,6 +1,6 @@
 import yaml
 from core.Bots import load_chat_agent
-from typing import Dict, Optional
+from typing import Dict, Optional, Union
 
 class Agent:
     """
@@ -55,42 +55,35 @@ class Agent:
         """
         return f"{self.name}: {self.role}"
 
-    def parse(self, raw: str) -> Dict[str, Optional[str]]:
-        """
-        Parse the first Action[...] line from LLM output.
-        """
-
+    def parse(self, raw: str) -> Dict[str, Union[str, None, bool]]:
+        
         lines = [l.strip() for l in raw.splitlines() if l.strip()]
+        get = lambda k: next((l.split(":", 1)[1].strip() for l in lines if l.startswith(k + ":")), "")
 
-        action_line = None
-        for line in lines:
-            if line.startswith("Action["):
-                action_line = line
-                break
+        raw_thought = get("Thought")
+        raw_action  = get("Action")
+        raw_target  = get("Target")
+        raw_content = get("Content")
 
-        if not action_line:
-            raise ValueError(f"No Action[...] line found in:\n{raw}")
+        parse_error = not (raw_thought and raw_action and raw_content)
 
-        # Remove leading "Action[" and ending "]"
-        inside = action_line[len("Action[") : action_line.index("]")]
+        thought  = raw_thought or "Agent failed to produce proper Thought."
+        action   = raw_action or "Agent failed to produce proper Action"
+        content  = raw_content or "Agent failed to produce proper Content"
+        target   = raw_target or None
 
-        # inside
+        if isinstance(target, str) and target.lower() in {"", "none", "null"}:
+            target = None
 
-        if ":" in inside:
-            action_type, subtype = inside.split(":", 1)
-            action_type = action_type.strip()
-            subtype = subtype.strip()
-        else:
-            action_type = inside.strip()
-            subtype = None
-
-        # Get content after the closing bracket 
-        after = action_line[action_line.index("]") + 1:].lstrip(":").strip()
+        parse_error = not (thought and action and content)
 
         return {
-            "type": action_type,   # e.g. "delegate" or "finish"
-            "target": subtype,     # e.g. "Intel" or None
-            "content": after,      # everything after ]
+            "thought": thought,
+            "type": action,
+            "target": target,
+            "content": content,
+            "parse_error": parse_error,
+            "raw": raw
         }
     
     def reset(self):
