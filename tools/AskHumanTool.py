@@ -11,7 +11,4 @@ class AskHumanTool(BaseTool):
         """
         Ask the notebook user and return their answer.
         """
-        print(f"\n[{self.agent}] is asking a human:")
-        print(content)
-        answer = input("Your answer for the agent: ")
-        return answer
+        return input("Your answer for the agent: ")
