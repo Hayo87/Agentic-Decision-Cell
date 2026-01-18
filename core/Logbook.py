@@ -2,52 +2,49 @@ from rich.console import Console
 from rich.panel import Panel
 from rich.table import Table
 from rich.text import Text
-from core.Agent import ReasoningStep
-from typing import Any, Dict, List
+from typing import List
+from dataclasses import dataclass
+
+@dataclass
+class ReasoningStep:
+    agent: str
+    prompt: str
+    thought: str
+    action: str
+    line: str
+    parse_error: bool
+    raw: str
+
 
 class Logbook:
     def __init__(self, debug: bool = False):
-        self.console = Console(record=True)
+        self.console = Console(record=True, markup=False)
         self.width = 90
         self.debug = debug
-        self.trace = []
+        self.trace: List[ReasoningStep] = []
 
-    def reset(self) -> None:
-        self.trace = []
-        self.turn = 0
-
-    def record_step(self, turn: int, reasoning: ReasoningStep, stack_depth: int) -> None:
+    def record_step(self, step: ReasoningStep) -> None:
        
-        step = {
-            "turn": turn,
-            "reasoning": reasoning,
-            "stack_depth": stack_depth,
-        }
-
         self.trace.append(step)
-        self._log_step(reasoning, stack_depth, turn)
+        self._log_step(step)
 
-    def _log_step(self, step: ReasoningStep, depth: int, turn: int) -> None:
+    def _log_step(self, step: ReasoningStep) -> None:
         
-        title = f"TURN {turn} | AGENT: {step.agent} | DEPTH: {depth}"
+        title = f"| AGENT: {step.agent} |"
         table = Table(show_header=False, box=None, padding=(0, 1))
         
         # Input section
         table.add_row(Text("INPUT", style="bold cyan"), "")
         table.add_row("", step.prompt)
 
-        table.add_row("", "")  # spacer
+        table.add_row("", "")
 
         # Output section
         table.add_row(Text("OUTPUT", style="bold green"), "")
         table.add_row("Thought", step.thought)
         table.add_row("Action", step.action)
-        table.add_row("Target", str(step.target))
-        table.add_row("Content", step.content)
-        table.add_row(
-            "Parse error",
-            "[red]True[/red]" if step.parse_error else "[green]False[/green]",
-        )
+        table.add_row("Action line", str(step.line))
+        table.add_row("Parse error", str(step.parse_error))
 
         if step.parse_error:
             table.add_row("", "")
