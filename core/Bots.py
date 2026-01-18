@@ -31,9 +31,6 @@ def load(provider: str, model: str):
         case "ollama":
             return lambda prompt: chat(model=model, messages=[{"role": "user", "content": prompt}]).message.content
 
-        case _:
-            pipe = pipeline( "text-generation", model=model, device_map="auto",)
-            return lambda prompt: pipe(prompt, max_new_tokens=512)[0]["generated_text"]
 
 def load_chat_agent(provider: str, model: str, system_prompt: str = ""):
     """
