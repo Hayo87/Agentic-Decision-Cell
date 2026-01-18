@@ -1,0 +1,116 @@
+# KB Manifest
+- built_at: 2026-01-18T15:15:43
+- documents: 1687
+
+| source | type |
+|---|---|
+| agents/kb/LegalAdvisor/temp.md | md |
+| agents/kb/LegalAdvisor/105-IHL-1-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/110-IHL-L-Code-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/120-IHL-GC1864-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/125-IHL-5-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/130-IHL-6-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/135-IHL-7-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/140-IHL-8-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/145-IHL-9-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/150-IHL-10-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/155-IHL-11-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/160-IHL-12-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/165-IHL-13-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/170-IHL-14-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/175-IHL-15-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/180-IHL-GC-1906-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/185-IHL-17-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/190-IHL-18-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/195-IHL-19-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/200-IHL-20-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/205-IHL-21-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/210-IHL-22-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/215-IHL-23-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/220-IHL-24-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/225-IHL-25-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/230-IHL-26-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/235-IHL-27-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/240-IHL-28-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/245-IHL-29-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/250-IHL-30-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/255-IHL-31-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/260-IHL-32-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/265-IHL-33-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/270-IHL-34-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/275-IHL-35-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/280-IHL-36-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/290-IHL-37-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/295-IHL-38-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/300-IHL-GC-1929-1-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/305-IHL-GC-1929-2-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/310-IHL-41-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/315-ATTKMY85.pdf | pdf |
+| agents/kb/LegalAdvisor/320-IHL-43-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/325-IHL-44-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/330-IHL-45-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/335-IHL-46-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/340-IHL-47-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/345-IHL-48-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/350-IHL-49-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/355-IHL-50-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/357-IHL-51-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/360-IHL-52-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/365-GC-I-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/370-GC-II-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/375-GC-III-EN.002.pdf | pdf |
+| agents/kb/LegalAdvisor/380-GC-IV-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/390-IHL-58-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/395-IHL-59-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/400-IHL-60-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/410-IHL-61-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/415-IHL-62-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/420-Draft-ICRC-Rules-1956-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/430-IHL-64-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/435-IHL-65-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/440-IHL-66-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/445-IHL-67-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/450-IHL-68-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/455-IHL-69-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/460-IHL-70-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/470-AP-I-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/471-ATT2ERWF.pdf | pdf |
+| agents/kb/LegalAdvisor/472-IHL-A-PA-1-1977-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/475-AP-II-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/485-IHL-78-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/490-IHL-79-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/495-IHL-80-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/500-IHL-81-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/505-IHL-82-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/510-IHL-83-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/515-IHL-84-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/530-IHL-85-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/540-IHL-86-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/553-IHL-87-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/555-IHL-88-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/560-IHL-89-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/565-IHL-90-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/570-IHL-91-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/575-IHL-92-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/580-IHL-93-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/585-IHL-94-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/590-IHL-95-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/595-IHL-96-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/600-IHL-97-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/605-IHL-98-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/610-IHL-99-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/615-AP-III-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/615-PA-III-EN-irrc-865-queguiner.pdf | pdf |
+| agents/kb/LegalAdvisor/618-enforced-disappearance-2006.pdf | pdf |
+| agents/kb/LegalAdvisor/620-IHL-102-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/621-RomeStatutEng1.pdf | pdf |
+| agents/kb/LegalAdvisor/622-RomeStatutEng1.pdf | pdf |
+| agents/kb/LegalAdvisor/630-ATT-En.pdf | pdf |
+| agents/kb/LegalAdvisor/640-TPNW-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/AP-I-Annex-II-EN.pdf | pdf |
+| agents/kb/LegalAdvisor/Dutch Army Doctrine.pdf | pdf |
+| agents/kb/LegalAdvisor/International Humanitarian Law.pdf | pdf |
+| agents/kb/LegalAdvisor/Military Decision Making Process.pdf | pdf |
+| agents/kb/LegalAdvisor/NATO Allied Joint Doctrine.pdf | pdf |
+| agents/kb/LegalAdvisor/San_Remo_Manual_Armed_Conflicts_At_Sea.pdf | pdf |
+| agents/kb/LegalAdvisor/The Red Team Handbook.pdf | pdf |
