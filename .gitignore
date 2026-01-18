@@ -4,6 +4,7 @@ venv/
 .venv/
 .vscode/
 .ipynb_checkpoints/
+.idea/
 
 # Ignore all knowledge-base folders
 agents/kb/*
