@@ -6,7 +6,7 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.vectorstores import Chroma
 from langchain_core.tools import create_retriever_tool
-
+import math
 
 @tool
 def ask_human(prompt: str) -> str:
@@ -36,6 +36,14 @@ def kb_search(path: str, k=3):
         description=f"Search the knowledge base at {path}",
     )
 
+
+@tool
+def calculate(expr: str) -> str:
+    """Evaluate a weighted score expression."""
+    try:
+        return str(eval(expr, {"__builtins__": {}}, math.__dict__))
+    except Exception as e:
+        return f"ERROR: {e}"
 
 def load_docs(path: str):
     docs = []
