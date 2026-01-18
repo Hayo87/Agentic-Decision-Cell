@@ -50,7 +50,7 @@ class Agent:
             if not tool:
                 observation = self.errors["unknown_tool"].format(action= step.action)
             else:
-                observation = str(tool.invoke({"prompt": step.line}))
+                observation = str(tool.invoke(step.line))
 
             q = f"Observation: {observation}"
 

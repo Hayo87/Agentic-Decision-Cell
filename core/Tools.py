@@ -24,7 +24,7 @@ def agent_as_tool(agent: Agent, name: str):
     )
 
 def kb_search(path: str, k=3):
-    docs = load_docs(path)
+    docs = DirectoryLoader(path, glob="**/*.txt", loader_cls=TextLoader).load()
     chunks = RecursiveCharacterTextSplitter(chunk_size=800, chunk_overlap=120).split_documents(docs)
     db = Chroma.from_documents(chunks, HuggingFaceEmbeddings(
         model_name="sentence-transformers/all-mpnet-base-v2"
