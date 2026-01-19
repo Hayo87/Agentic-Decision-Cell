@@ -16,7 +16,7 @@ system_prompt: |
   Content: <payload>
 
   Valid actions:
-  - search      (Target MUST be KnowledgeBase)
+  - search_cyber_operations      (Target MUST be KnowledgeBase)
   - ask_human  (Target MUST be none)
   - finish     (Target MUST be none)
 
