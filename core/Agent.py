@@ -1,10 +1,24 @@
 import re
+import warnings
 from core.Bots import load_chat_agent
 from core.Logbook import Logbook, ReasoningStep
 
+# Fallback error messages used when a YAML config is missing the errors section
+_DEFAULT_ERRORS = {
+    "parse_autocorrect": (
+        "FORMAT ERROR. Rewrite using EXACTLY:\n"
+        "Thought: <one sentence>\n"
+        "Action: <valid_action>\n"
+        "Action Line: <plain text>\n\n"
+        "Your previous response:\n{raw}"
+    ),
+    "unknown_tool": 'TOOL ERROR: "{action}" not recognized.',
+    "no_answer": "TIMEOUT: agent did not reach Action: finish.",
+}
+
 class Agent:
     """
-    Class for a LLM agent, load YAML config, applies system prompt, and queries an LLM backend returning a parsed action. 
+    Class for a LLM agent, load YAML config, applies system prompt, and queries an LLM backend returning a parsed action.
     """
 
     def __init__(self, config: dict, logbook: Logbook, tools: list):
@@ -17,7 +31,18 @@ class Agent:
         self.tools = {t.name: t for t in tools}
         self.name = config["name"]
         self.role = config["role"]
-        self.errors = config.get("errors", {})
+
+        # Merge provided errors over defaults so missing keys never crash
+        self.errors = {**_DEFAULT_ERRORS, **config.get("errors", {})}
+
+        # Warn early if the YAML config is missing any expected error key
+        missing = [k for k in _DEFAULT_ERRORS if k not in config.get("errors", {})]
+        if missing:
+            warnings.warn(
+                f"Agent '{self.name}': YAML config missing error keys {missing}. "
+                f"Using built-in defaults.",
+                stacklevel=2,
+            )
 
         # LLM inference function
         self.infer = load_chat_agent(config["provider"], config["model"], config["system_prompt"])
