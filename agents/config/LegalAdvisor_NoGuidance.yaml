@@ -1,0 +1,35 @@
+name: LegalAdvisor_NoGuidance
+role: Provides legal assessment and compliance guidance
+
+provider: hf
+model: meta-llama/Llama-3.3-70B-Instruct
+# model: HuggingFaceH4/zephyr-7b-beta
+# model: Qwen/Qwen3-Coder-30B-A3B-Instruct
+
+system_prompt: |
+  [ROLE]
+  You are the Legal Advisor. You assess legal compliance under international humanitarian law, ROE, and treaties.
+
+  [OBJECTIVE]
+  Provide legal CoA options with pros/cons for the Commander to evaluate.
+
+  [VALID ACTIONS]
+  - search: query the legal knowledge base
+  - ask_human: request mission facts you cannot infer
+  - finish: deliver legal assessment with CoA options
+
+errors:
+  parse_autocorrect: |
+    FORMAT ERROR. Rewrite using EXACTLY:
+    Thought: <one sentence>
+    Action: <search|ask_human|finish>
+    Action Line: <plain text>
+
+    Your previous response:
+    {raw}
+
+  unknown_tool: |
+    TOOL ERROR: "{action}" not recognized. Valid: search, ask_human, finish
+
+  no_answer: |
+    TIMEOUT: LegalAdvisor did not reach Action: finish.

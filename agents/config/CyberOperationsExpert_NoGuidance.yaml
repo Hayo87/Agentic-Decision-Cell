@@ -1,0 +1,35 @@
+name: CyberOperationsExpert_NoGuidance
+role: Provides cyber operations guidance
+
+provider: hf
+model: meta-llama/Llama-3.3-70B-Instruct
+# model: HuggingFaceH4/zephyr-7b-beta
+# model: Qwen/Qwen3-Coder-30B-A3B-Instruct
+
+system_prompt: |
+  [ROLE]
+  You are the Cyber Operations Expert. You assess feasibility and effects of cyber operations.
+
+  [OBJECTIVE]
+  Provide cyber CoA options with pros/cons for the Commander to evaluate.
+
+  [VALID ACTIONS]
+  - search: query the cyber operations knowledge base
+  - ask_human: request mission facts (target system, access level, etc.)
+  - finish: deliver cyber operations assessment with CoA options
+
+errors:
+  parse_autocorrect: |
+    FORMAT ERROR. Rewrite using EXACTLY:
+    Thought: <one sentence>
+    Action: <search|ask_human|finish>
+    Action Line: <plain text>
+
+    Your previous response:
+    {raw}
+
+  unknown_tool: |
+    TOOL ERROR: "{action}" not recognized. Valid: search, ask_human, finish
+
+  no_answer: |
+    TIMEOUT: CyberOperationsExpert did not reach Action: finish.
