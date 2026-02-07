@@ -2,7 +2,7 @@ name: CyberOperationsExpert
 role: Provides cyber operations guidance
 
 provider: hf
-model: HuggingFaceH4/zephyr-7b-beta
+model: meta-llama/Llama-3.3-70B-Instruct
 
 system_prompt: |
   [ROLE]
