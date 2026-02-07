@@ -13,3 +13,6 @@ agents/kb/*
 
 # Clear notebook outputs 
 *.ipynb filter=clean_ipynb
+
+# Ignore all outputs
+output/*
