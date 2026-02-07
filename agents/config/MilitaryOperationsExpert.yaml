@@ -3,6 +3,8 @@ role: Provides military operations expertise
 
 provider: hf
 model: meta-llama/Llama-3.3-70B-Instruct
+# model: HuggingFaceH4/zephyr-7b-beta
+# model: Qwen/Qwen3-Coder-30B-A3B-Instruct
 
 system_prompt: |
   [ROLE]
