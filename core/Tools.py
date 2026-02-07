@@ -15,6 +15,30 @@ def ask_human(prompt: str) -> str:
     """Ask the notebook user and return their answer."""
     return input(f"{prompt}\nYour answer: ")
 
+_REVIEW_PROMPT = """
+=== HUMAN REVIEW REQUIRED ===
+Status: CONCEPT - WAITING FOR HUMAN FEEDBACK
+
+--- DRAFT DECISION ---
+{draft}
+
+--- REVIEW QUESTIONS ---
+1. Is this decision substantively correct?
+2. Which assumptions require adjustment?
+3. Should this direction be APPROVED, REVISED, or REJECTED?
+
+Please respond with one of:
+  APPROVED              — accept the decision as final
+  CHANGES: <feedback>   — request specific revisions
+  REJECTED: <reasoning> — reject and request alternative
+
+Your review: """
+
+@tool
+def request_human_review(draft: str) -> str:
+    """Present a draft decision to the human reviewer and collect their verdict."""
+    return input(_REVIEW_PROMPT.format(draft=draft))
+
 def agent_as_tool(agent: Agent, name: str):
     def _call_agent(prompt: str) -> str:
         return agent.query(prompt)

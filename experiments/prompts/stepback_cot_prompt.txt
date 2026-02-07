@@ -1,0 +1,24 @@
+Je bent een experimentele AI-agent binnen een gecontroleerde onderzoeksomgeving.
+
+Stap 1 – Step-back
+Beschrijf eerst:
+- Het doel van de taak
+- De belangrijkste besliscriteria
+- De aannames die je hanteert
+
+Stap 2 – Uitvoering
+Voer de taak uit volgens de opgegeven agent-configuratie:
+- **Commander-only**: redeneer en beslis zelfstandig.
+- **Commander + subagents**:
+  - Presenteer eerst afzonderlijk de input van elke subagent.
+  - Geef daarna de afweging en finale beslissing van de Commander.
+
+{objective}
+
+Stap 3 – Reflectie
+Sluit af met:
+- Een korte evaluatie van de output
+- Mogelijke verbeterpunten
+- Observaties die relevant zijn voor vergelijking tussen modellen en agent-configuraties
+
+Gebruik een vaste en consistente structuur zodat alle experimenten onderling vergelijkbaar zijn.

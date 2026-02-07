@@ -15,6 +15,15 @@ class ReasoningStep:
     parse_error: bool
     raw: str
 
+@dataclass
+class ReviewStep:
+    agent: str
+    draft_decision: str
+    review_questions: str
+    human_feedback: str
+    verdict: str          # "approved", "changes", or "rejected"
+    iteration: int        # review round number
+
 
 class Logbook:
     def __init__(self, debug: bool = False):
@@ -24,9 +33,12 @@ class Logbook:
         self.trace: List[ReasoningStep] = []
 
     def record_step(self, step: ReasoningStep) -> None:
-       
         self.trace.append(step)
         self._log_step(step)
+
+    def record_review(self, review: ReviewStep) -> None:
+        self.trace.append(review)
+        self._log_review(review)
 
     def _log_step(self, step: ReasoningStep) -> None:
         
@@ -56,6 +68,40 @@ class Logbook:
                 table,
                 title=title,
                 border_style="red" if step.parse_error else "green",
+                width=self.width,
+            )
+        )
+
+    def _log_review(self, review: ReviewStep) -> None:
+        title = f"| HUMAN REVIEW #{review.iteration} — {review.agent} |"
+        table = Table(show_header=False, box=None, padding=(0, 1))
+
+        table.add_row(Text("DRAFT DECISION", style="bold cyan"), "")
+        table.add_row("", review.draft_decision)
+        table.add_row("", "")
+
+        table.add_row(Text("REVIEW QUESTIONS", style="bold yellow"), "")
+        table.add_row("", review.review_questions)
+        table.add_row("", "")
+
+        table.add_row(Text("HUMAN FEEDBACK", style="bold magenta"), "")
+        table.add_row("", review.human_feedback)
+        table.add_row("", "")
+
+        table.add_row(Text("VERDICT", style="bold white"), review.verdict.upper())
+
+        if review.verdict == "approved":
+            border = "green"
+        elif review.verdict == "changes":
+            border = "yellow"
+        else:
+            border = "red"
+
+        self.console.print(
+            Panel(
+                table,
+                title=title,
+                border_style=border,
                 width=self.width,
             )
         )

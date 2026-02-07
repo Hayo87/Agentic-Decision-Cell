@@ -32,7 +32,7 @@ def load(provider: str, model: str):
             return lambda prompt: chat(model=model, messages=[{"role": "user", "content": prompt}]).message.content
 
 
-def load_chat_agent(provider: str, model: str, system_prompt: str = ""):
+def load_chat_agent(provider: str, model: str, system_prompt: str = "", model_settings: dict = None):
     """
     Create a *stateful* chat function with optional system prompt and memory.
 
@@ -43,7 +43,14 @@ def load_chat_agent(provider: str, model: str, system_prompt: str = ""):
     - Prepends a system prompt when provided.
     - Sends (system + all previous messages + new message) to the model.
     - Appends the model's response to the chat history.
+
+    model_settings (optional dict) may contain:
+    - max_tokens (default 250)
+    - temperature (default 0.2)
+    - top_p (default 0.9)
+    - top_k (passed via extra_body when supported)
     """
+    settings = model_settings or {}
 
     if provider == "hf":
         client = InferenceClient(api_key=HF_KEY)
@@ -53,18 +60,23 @@ def load_chat_agent(provider: str, model: str, system_prompt: str = ""):
 
         def ask(user_content: str) -> str:
             messages.append({"role": "user", "content": user_content})
-            resp = client.chat.completions.create(
+
+            create_kwargs = dict(
                 model=model,
                 messages=messages,
-                max_tokens=250,          
-                temperature=0.2,        
-                top_p=0.9,
+                max_tokens=settings.get("max_tokens", 250),
+                temperature=settings.get("temperature", 0.2),
+                top_p=settings.get("top_p", 0.9),
                 stop=[
                     "\nQuestion:",
                     "\nObservation:",
                     "------------------------------------------------------------"
                 ],
-            ).choices[0].message.content
+            )
+            if "top_k" in settings:
+                create_kwargs["extra_body"] = {"top_k": settings["top_k"]}
+
+            resp = client.chat.completions.create(**create_kwargs).choices[0].message.content
             messages.append({"role": "assistant", "content": resp})
             return resp or ""
 
