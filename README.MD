@@ -12,7 +12,70 @@ The system combines:
 - **Transparent reasoning traces** – each agent exposes its step-by-step thought process  
 - **Retrieval-Augmented Generation (RAG)** – agents can query their own knowledge bases to ground reasoning in data  
 
-This repo is initialized with an example that demonstrates how DecisionCell can support military Course of Action (CoA) selection using agents such as a Commander and a Legal Advisor.
+This repo is initialized with an example that demonstrates how DecisionCell can support military Course of Action (CoA) selection using agents such as a Commander, Cyber Operations Expert, and Legal Advisor.
+
+## 🔗 Example Reasoning Chain
+
+Below is a simplified trace from an actual experiment run (Llama 3.3 70B, multi-agent configuration). It shows how agents collaborate through structured ReAct steps to reach a decision.
+
+```
+Step 1 │ Commander
+        Thought:  I must evaluate each CoA based on simplicity, security,
+                  and proportionality.
+        Action:   ask_cyber_operations
+        Line:     Compare the technical feasibility and potential risks of
+                  CoA-1, CoA-2, and CoA-3.
+
+Step 2 │ CyberOperationsExpert
+        Thought:  I must weigh the technical feasibility, potential impact,
+                  and risks of each CoA option.
+        Action:   finish
+        Line:     RECOMMENDATION: CoA-1 for high impact if detection risk
+                  is mitigated, otherwise CoA-3 for stealth.
+
+Step 3 │ Commander
+        Thought:  I need to assess the legality of these options, considering
+                  civilian impact and proportionality.
+        Action:   ask_legal
+        Line:     Evaluate the legality of BlackEnergy3 malware or GNSS
+                  spoofing under international humanitarian law.
+
+Step 4 │ LegalAdvisor
+        Thought:  I must assess legality under IHL, considering distinction,
+                  proportionality, and unnecessary suffering.
+        Action:   search
+        Line:     BlackEnergy3 GNSS spoofing international humanitarian law
+
+Step 5 │ LegalAdvisor
+        Thought:  I must weigh military necessity against potential harm
+                  to civilians.
+        Action:   ask_human
+        Line:     What is the potential impact on civilian infrastructure?
+
+Step 6 │ LegalAdvisor
+        Thought:  Given the high impact of BlackEnergy3 and medium impact
+                  of GNSS spoofing, CoA-3 balances necessity with lower risk.
+        Action:   finish
+        Line:     RECOMMENDATION: CoA-3 (GNSS spoofing) — lower risk of
+                  harm to civilians.
+
+Step 7 │ Commander
+        Thought:  I must present this draft decision for mandatory human review.
+        Action:   ask_human
+        Line:     CONCEPT — WAITING FOR HUMAN FEEDBACK
+                  RECOMMENDED: CoA-3 (GNSS spoofing)
+                  REJECTED: CoA-1 (disproportionate civilian harm)
+
+Step 8 │ Commander
+        Thought:  Human has approved the draft decision.
+        Action:   finish
+        Line:     FINAL DECISION: CoA-3 (GNSS spoofing)
+```
+
+This trace illustrates three key properties of the framework:
+1. **Separation of concerns** — each agent contributes domain-specific reasoning (technical feasibility, legal compliance)
+2. **Transparency** — every intermediate step is visible and traceable
+3. **Human-in-the-Loop** — the Commander presents a draft decision (CONCEPT) and waits for human approval before finalising
 
 ## 🚀 Getting Started
 
