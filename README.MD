@@ -108,19 +108,7 @@ provider="hf", model="meta-llama/Meta-Llama-3-8B-Instruct"
 
 ---
 
-## 4. Knowledge Bases (optional)
-
-Place per‑agent documents under:
-
-```
-agents/kb/<AgentName>/
-```
-
-Tools will automatically load these for retrieval‑augmented reasoning.
-
----
-
-## 5. Run the Notebook
+## 4. Run the Notebook
 
 ```bash
 jupyter lab
@@ -138,11 +126,3 @@ The notebook contains guided setup cells that walk you through the full workflow
 - Enabling tools
 - Building the DecisionCell
 - Defining and analyzing a mission objective
-
-
-## 6. Extending
-
-- Create new agents by giving them a name and placing their system prompt in the `agents/` folder (e.g., `agents/prompts/<AgentName>.txt`).  
-- Add new tools by subclassing `BaseTool`. 
-
-All experiment-specific configuration (agents, tools, objectives, models) is defined directly in the notebook.
