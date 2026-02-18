@@ -18,64 +18,37 @@ This repo is initialized with an example that demonstrates how DecisionCell can 
 
 Below is a simplified trace from an actual experiment run (Llama 3.3 70B, multi-agent configuration). It shows how agents collaborate through structured ReAct steps to reach a decision.
 
-```
-Step 1 │ Commander
-        Thought:  I must evaluate each CoA based on simplicity, security,
-                  and proportionality.
-        Action:   ask_cyber_operations
-        Line:     Compare the technical feasibility and potential risks of
-                  CoA-1, CoA-2, and CoA-3.
+## 🔗 Example Reasoning Chain
 
-Step 2 │ CyberOperationsExpert
-        Thought:  I must weigh the technical feasibility, potential impact,
-                  and risks of each CoA option.
-        Action:   finish
-        Line:     RECOMMENDATION: CoA-1 for high impact if detection risk
-                  is mitigated, otherwise CoA-3 for stealth.
+### Step 1 — Commander initiates the decision process
+![Step 1 – Commander input and delegation](/images/CCC-DSS_example_step1.png)
 
-Step 3 │ Commander
-        Thought:  I need to assess the legality of these options, considering
-                  civilian impact and proportionality.
-        Action:   ask_legal
-        Line:     Evaluate the legality of BlackEnergy3 malware or GNSS
-                  spoofing under international humanitarian law.
 
-Step 4 │ LegalAdvisor
-        Thought:  I must assess legality under IHL, considering distinction,
-                  proportionality, and unnecessary suffering.
-        Action:   search
-        Line:     BlackEnergy3 GNSS spoofing international humanitarian law
+### Step 2 — Cyber Operations expert evaluates technical feasibility
+![Step 2 – Cyber Operations assessment](images/CCC-DSS_example_step2.png)
 
-Step 5 │ LegalAdvisor
-        Thought:  I must weigh military necessity against potential harm
-                  to civilians.
-        Action:   ask_human
-        Line:     What is the potential impact on civilian infrastructure?
+### Step 3 — Commander requests legal assessment
+![Step 3 – Commander legal request](images/CCC-DSS_example_step3.png)
 
-Step 6 │ LegalAdvisor
-        Thought:  Given the high impact of BlackEnergy3 and medium impact
-                  of GNSS spoofing, CoA-3 balances necessity with lower risk.
-        Action:   finish
-        Line:     RECOMMENDATION: CoA-3 (GNSS spoofing) — lower risk of
-                  harm to civilians.
+### Step 4 — Legal advisor evaluates compliance with international humanitarian law
+![Step 4 – Legal advisor analysis](images/CCC-DSS_example_step4.png)
 
-Step 7 │ Commander
-        Thought:  I must present this draft decision for mandatory human review.
-        Action:   ask_human
-        Line:     CONCEPT — WAITING FOR HUMAN FEEDBACK
-                  RECOMMENDED: CoA-3 (GNSS spoofing)
-                  REJECTED: CoA-1 (disproportionate civilian harm)
+### Step 5 — Legal advisor incorporates external legal sources
+![Step 5 – Legal advisor external knowledge](/images/CCC-DSS_example_step5.png)
 
-Step 8 │ Commander
-        Thought:  Human has approved the draft decision.
-        Action:   finish
-        Line:     FINAL DECISION: CoA-3 (GNSS spoofing)
-```
+### Step 6 — Legal advisor requests human input
+![Step 6 – Legal advisor human-in-the-loop](images/CCC-DSS_example_step6.png)
 
-This trace illustrates three key properties of the framework:
-1. **Separation of concerns** — each agent contributes domain-specific reasoning (technical feasibility, legal compliance)
-2. **Transparency** — every intermediate step is visible and traceable
-3. **Human-in-the-Loop** — the Commander presents a draft decision (CONCEPT) and waits for human approval before finalising
+### Step 7 — Legal advisor provides recommendation
+![Step 7 – Legal advisor recommendation](images/CCC-DSS_example_step7.png)
+
+### Step 8 — Commander presents draft decision for human review
+![Step 8 – Commander draft decision](/images/CCC-DSS_example_step8.png)
+
+### Step 9 — Commander issues final decision
+![Step 9 – Final decision](images/CCC-DSS_example_step9.png)
+
+
 
 ## 🚀 Getting Started
 
